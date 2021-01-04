@@ -30,6 +30,9 @@ type DataItem interface {
 	// RemoveListener will detach the specified change listener from the DataItem.
 	// Disconnected listener will no longer be triggered when changes occur.
 	RemoveListener(DataListener)
+	// Reload notifies the listeners of a binding that its data has changed.
+	// Functions like `Set(float64) error` will call this automatically.
+	Reload()
 }
 
 // DataListener is any object that can register for changes in a bindable DataItem.
@@ -85,6 +88,10 @@ func (b *base) RemoveListener(l DataListener) {
 			b.listeners = append(b.listeners[:i], b.listeners[i+1:]...)
 		}
 	}
+}
+
+func (b *base) Reload() {
+	b.trigger()
 }
 
 func (b *base) trigger() {

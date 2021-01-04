@@ -230,6 +230,13 @@ func (b *mapBase) SetValue(key string, d interface{}) error {
 	return nil
 }
 
+func (b *mapBase) Reload() {
+	for _, i := range b.items {
+		i.Reload()
+	}
+	b.trigger()
+}
+
 func (b *mapBase) setItem(key string, d DataItem) {
 	b.items[key] = d
 

@@ -1,6 +1,6 @@
 package binding
 
-var itemQueue = make(chan itemData, 1024)
+var itemQueue = make(chan itemData, 10240000)
 
 type itemData struct {
 	fn   func()
@@ -27,7 +27,7 @@ func processItems() {
 	}
 }
 
-func waitForItems() {
+func WaitForItems() {
 	done := make(chan interface{})
 	itemQueue <- itemData{done: done}
 	<-done

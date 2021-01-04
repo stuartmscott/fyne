@@ -45,3 +45,10 @@ func (b *listBase) prependItem(i DataItem) {
 
 	b.trigger()
 }
+
+func (b *listBase) Reload() {
+	for _, i := range b.items {
+		i.Reload()
+	}
+	b.trigger()
+}
